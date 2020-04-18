@@ -12,6 +12,7 @@ import 'package:ofypets_mobile_app/utils/constants.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_launch/flutter_launch.dart';
 
 import 'headers.dart';
 
@@ -363,7 +364,7 @@ class _HomeDrawer extends State<HomeDrawer> {
           InkWell(
             onTap: () {
               //_browseLink('https://api.whatsapp.com/send?phone=+85260262278');
-              _browseLink('whatsapp://send?phone=+85260262278');
+              _whatsappMsg();
             },
             child: ListTile(
               leading: Icon(
@@ -429,11 +430,6 @@ _callMe(String phone) async {
   }
 }
 
-_browseLink(String url) async {
-    final uri = url;
-    if (await canLaunch(uri)) {
-      await launch(uri);
-    } else {
-      throw 'Could not launch $uri';
-    }
+_whatsappMsg() async {
+    await FlutterLaunch.launchWathsApp(phone: "+85260262278", message: "Hello");
 }
