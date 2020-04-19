@@ -137,3 +137,52 @@ Widget todaysDealsCard(int index, List<Product> todaysDealProducts,
             )));
   });
 }
+
+Widget categoryBalls(int index, List<Product> todaysDealProducts,
+    Size _deviceSize, BuildContext context) {
+  Product displayProduct = todaysDealProducts[index].hasVariants
+      ? todaysDealProducts[index].variants.first
+      : todaysDealProducts[index];
+  return ScopedModelDescendant<MainModel>(
+      builder: (BuildContext context, Widget child, MainModel model) {
+        return GestureDetector(
+            onTap: () {
+              model.getProductDetail(todaysDealProducts[index].slug, context);
+            },
+            child: SizedBox(
+                width: _deviceSize.width * 0.3,
+                height: _deviceSize.height * 0.2,
+                child: Column(
+                    children: <Widget>[
+                      Card(
+                      margin: EdgeInsets.all(10),
+                      elevation: 0,
+                      shape: CircleBorder(
+                          side: BorderSide(color: Colors.grey.withOpacity(0.4))),
+                      child:
+                          Container(
+                            margin: EdgeInsets.all(15),
+                            child: FadeInImage(
+                              image: NetworkImage(displayProduct.image != null
+                                  ? displayProduct.image
+                                  : ''),
+                              placeholder: AssetImage(
+                                  'images/placeholders/no-product-image.png'),
+                              height: 60,
+                            ),
+                          ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 30,
+                        padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                        child: Text(
+                          displayProduct.name,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ])));
+      });
+}

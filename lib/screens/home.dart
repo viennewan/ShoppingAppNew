@@ -96,6 +96,20 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           color: Colors.white,
           child: CustomScrollView(slivers: [
+            SliverToBoxAdapter(
+              child: Container(
+                color: Colors.orange,
+                height: 140,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: todaysDealProducts.length,
+                  itemBuilder: (context, index) {
+                    return categoryBalls(
+                        index, todaysDealProducts, _deviceSize, context);
+                  },
+                ),
+              ),
+            ),
             SliverList(
               delegate: SliverChildListDelegate([
                 Container(
